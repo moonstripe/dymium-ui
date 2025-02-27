@@ -4,7 +4,7 @@ For Igor @ Dymium.
 
 ### Usage
 
-Install and run the dev command that corresponds to your JS runtime.
+Install dependencies and run the dev command that corresponds to your JS runtime.
 It will:
 
 1. Start a dummy server that spews events
