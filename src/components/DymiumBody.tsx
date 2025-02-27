@@ -13,9 +13,9 @@ export const DymiumTableBody = <T extends GenericItem<string>>({
   data,
 }: DymiumTableBodyProps<T>) => {
   return data && data.length > 0 ? (
-    <tbody className="max-vh-80 overflow-scroll">
+    <tbody className="max-vh-80 overflow-scroll w-100 px-0">
       {data.map((item, i) => (
-        <tr key={`${item.id}`} className="small">
+        <tr key={`${item.id}`} className="small px-0">
           <td className="align-middle">
             <FormCheck />
           </td>
@@ -36,8 +36,62 @@ export const DymiumTableBody = <T extends GenericItem<string>>({
                   new Date(cellValue).toLocaleTimeString()
                 : cellValue;
 
+            if (col === "level") {
+              switch (formattedValue) {
+                case "INFO":
+                  return (
+                    <td
+                      key={String(col)}
+                      className="align-middle text-truncate w-fit"
+                    >
+                      <span className="rounded bg-primary disabled text-light p-1">
+                        {formattedValue}
+                      </span>
+                    </td>
+                  );
+
+                case "WARN":
+                  return (
+                    <td
+                      key={String(col)}
+                      className="align-middle text-truncate w-fit"
+                    >
+                      <span className="rounded disabled bg-warning text-light p-1">
+                        {formattedValue}
+                      </span>
+                    </td>
+                  );
+                case "ERROR":
+                  return (
+                    <td
+                      key={String(col)}
+                      className="align-middle text-truncate w-fit"
+                    >
+                      <span className="rounded disabled bg-danger text-light p-1">
+                        {formattedValue}
+                      </span>
+                    </td>
+                  );
+
+                default:
+                  console.error("New level invented");
+                  break;
+              }
+              return (
+                <td
+                  key={String(col)}
+                  className="align-middle text-truncate w-fit"
+                >
+                  <span className="rounded background">{formattedValue}</span>
+                </td>
+              );
+            }
+
             return (
-              <td key={String(col)} className="align-middle text-truncate">
+              <td
+                key={String(col)}
+                className="align-middle text-truncate w-fit"
+              >
                 {formattedValue}
               </td>
             );
@@ -58,7 +112,9 @@ export const DymiumTableBody = <T extends GenericItem<string>>({
   ) : (
     <tbody>
       <tr>
-        <td>There's nothing here</td>
+        <td colSpan={10} className="small text-secondary">
+          There's nothing here...
+        </td>
       </tr>
     </tbody>
   );
